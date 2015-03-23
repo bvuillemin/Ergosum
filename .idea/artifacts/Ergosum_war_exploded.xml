@@ -1,5 +1,5 @@
 <component name="ArtifactManager">
-  <artifact type="exploded-war" build-on-make="true" name="Ergosum:war exploded">
+  <artifact type="exploded-war" name="Ergosum:war exploded">
     <output-path>$PROJECT_DIR$/target/Ergosum</output-path>
     <root id="root">
       <element id="directory" name="WEB-INF">
@@ -14,10 +14,12 @@
           <element id="library" level="project" name="Maven: aopalliance:aopalliance:1.0" />
           <element id="library" level="project" name="Maven: org.springframework:spring-beans:4.1.1.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-context:4.1.1.RELEASE" />
-          <element id="library" level="project" name="Maven: javax.servlet:servlet-api:2.5" />
+          <element id="library" level="project" name="Maven: javax.servlet:javax.servlet-api:3.1.0" />
           <element id="library" level="project" name="Maven: org.springframework:spring-webmvc:4.1.1.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-expression:4.1.1.RELEASE" />
           <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:1.5.6" />
+          <element id="library" level="project" name="Maven: org.slf4j:slf4j-log4j12:1.7.5" />
+          <element id="library" level="project" name="Maven: log4j:log4j:1.2.17" />
         </element>
       </element>
       <element id="directory" name="META-INF">

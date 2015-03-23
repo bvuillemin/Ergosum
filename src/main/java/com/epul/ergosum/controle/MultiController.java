@@ -36,15 +36,17 @@ public class MultiController extends MultiActionController {
     private Jouet unJouet;
 
     @RequestMapping(value = "Accueil.htm", method = RequestMethod.GET)
-    public String home(Locale locale, Model model) {
-        logger.info("Welcome home! The client locale is {}.", locale);
-
+    public ModelAndView home(Locale locale, Model model) {
+        String destinationPage = "";
         Date date = new Date();
         DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG,
                 DateFormat.LONG, locale);
         String formattedDate = dateFormat.format(date);
         model.addAttribute("serverTime", formattedDate);
-        return "/Accueil";
+        System.out.println("JE construis la page");
+        destinationPage = "/Accueil";
+
+        return new ModelAndView(destinationPage);
     }
 
     /**
@@ -190,188 +192,6 @@ public class MultiController extends MultiActionController {
             request.setAttribute("MesErreurs", e.getMessage());
         }
 
-
-        return new ModelAndView(destinationPage);
-    }
-
-
-    /**
-     * Sauver jouet
-     */
-    @RequestMapping(value = "sauverJouet.htm")
-
-    public ModelAndView sauverJouet(HttpServletRequest request,
-                                    HttpServletResponse response) throws Exception {
-
-        String destinationPage = "/Erreur";
-        try
-        {
-            String id = request.getParameter("id");
-            GestionErgosum unService = new GestionErgosum();
-            if (unService != null)
-            {
-
-                // fabrication du jouet ‡ partir des paramËtres de la requÍte
-                // Si le jouet n'est pas ‡ crÈer, il faut le rÈcupÈrer de la session
-                // courante
-                // Ensuite on peut modifier ses champs
-
-                if (request.getParameter("type").equals("ajout"))
-                    unJouet = new Jouet();
-                else
-                { // on rÈcupËre le jouet courant
-
-                    unJouet = unService.rechercherJouet(id);
-                }
-                unJouet.setNumero(request.getParameter("id"));
-                unJouet.setLibelle(request.getParameter("libelle"));
-                System.out.println("codecateg="+request.getParameter("codecateg"));
-                System.out.println("codetranche="+request.getParameter("codetranche"));
-                Categorie uneCateg = unService.rechercherCategorie(request.getParameter("codecateg"));
-                unJouet.setCategorie(uneCateg);
-
-                Trancheage uneTranche = unService.rechercherTrancheage(request.getParameter("codetranche"));
-                unJouet.setTrancheage(uneTranche);
-
-                // sauvegarde du jouet
-                if (request.getParameter("type").equals("modif"))
-                {
-                    unService.modifier(unJouet);
-                } else
-                {
-
-                    Catalogue leCatalogue = unService.rechercherCatalogue(request.getParameter("codecatalogue"));
-                    System.out.println("Je suis ‡ la quantitÈ ");;
-                    int quantiteDistribution = Integer.parseInt(request.getParameter("quantiteDistribution"));
-                    if (quantiteDistribution>0)
-                    {
-                        leCatalogue.setQuantiteDistribuee(leCatalogue.getQuantiteDistribuee()+quantiteDistribution);
-                        unService.modifierCatalogue(leCatalogue);
-                    }
-                    unService.ajouter(unJouet);
-                }
-                try
-                {
-                    request.setAttribute("mesJouets", unService.listerTousLesJouets());
-                    destinationPage = "/ListeJouets";
-                } catch (MonException e)
-                {
-                    request.setAttribute("MesErreurs", e.getMessage());
-                }
-
-            }
-        } catch (Exception e)
-        {
-            request.setAttribute("MesErreurs", e.getMessage());
-        }
-
-        return new ModelAndView(destinationPage);
-    }
-
-
-
-    /**
-     *  effacer  jouet
-     */
-    @RequestMapping(value = "effacerJouet.htm")
-    public ModelAndView effacerJouet(HttpServletRequest request,
-                                     HttpServletResponse response) throws Exception {
-
-        String destinationPage = "";
-        try
-        {
-            String id = request.getParameter("id");
-            GestionErgosum unService = new GestionErgosum();
-
-            if (unService != null)
-            {
-                // recuperation de la liste des id a effacer
-                String[] ids = request.getParameterValues("id");
-                // effacement de la liste des id
-                try
-                {
-                    if (ids != null)
-                    {
-                        unService.effacer(ids);
-                    }
-                    // preparation de la liste
-                    request.setAttribute("mesJouets", unService.listerTousLesJouets());
-                }
-
-                catch (MonException e)
-                {
-                    request.setAttribute("MesErreurs", e.getMessage());
-                }
-
-                destinationPage = "/ListeJouets";
-            }
-        }
-        catch (Exception e)
-        {
-            request.setAttribute("MesErreurs", e.getMessage());
-        }
-        return new ModelAndView(destinationPage);
-    }
-
-
-    /**
-     *  afficher Catalogue
-     */
-    @RequestMapping(value = "afficherCatalogues.htm")
-    public ModelAndView afficherCatalogue(HttpServletRequest request, HttpServletResponse response) throws Exception {
-
-        String destinationPage = "/Erreur";
-        try
-        {
-            String id = request.getParameter("id");
-            GestionErgosum unService = new GestionErgosum();
-
-            if (unService != null)
-            {
-                // preparation de la liste
-                request.setAttribute("mesCataloguesQuantites", unService.listerCatalogueQuantites(Integer.parseInt(request.getParameter("anneeDebut")), Integer.parseInt(request.getParameter("nbAnnees"))));
-                destinationPage = "/AfficherCatalogues";
-            }
-        }
-
-        catch (MonException e)
-        {
-            request.setAttribute("MesErreurs", e.getMessage());
-        }
-
-        return new ModelAndView(destinationPage);
-    }
-
-
-
-
-    /**
-     *  afficher le Dictionnaire
-     */
-    @RequestMapping(value = "afficherDictionnaire.htm")
-    public ModelAndView afficherDictionnaire(HttpServletRequest request,
-                                             HttpServletResponse response) throws Exception {
-
-        String destinationPage = "/Erreur";
-        try
-        {
-            String annee = request.getParameter("annee");
-            GestionErgosum unService = new GestionErgosum();
-
-            if (unService != null)
-            {
-
-                HashMap<Categorie, Integer> hashCatInt = unService.rechercherDictionnaire(request.getParameter("annee"));
-                request.setAttribute("dictionnaire", hashCatInt);
-                request.setAttribute("anneecatalogue", annee);
-                destinationPage = "/AfficherDictionnaire";
-            }
-        }
-
-        catch (MonException e)
-        {
-            request.setAttribute("MesErreurs", e.getMessage());
-        }
 
         return new ModelAndView(destinationPage);
     }
