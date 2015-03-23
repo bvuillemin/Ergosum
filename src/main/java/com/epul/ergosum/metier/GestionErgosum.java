@@ -11,7 +11,7 @@ import java.util.List;
  */
 public class GestionErgosum {
 
-    public List<Jouet> listerTousLesJouets(int categorieCode, int trancheCode) {
+    public List<Jouet> listerTousLesJouets(int categorieCode, int trancheCode) throws MonException {
         List<Object> rs;
         List<Jouet> mesJouets = new ArrayList<Jouet>();
         int index = 0;
@@ -41,7 +41,7 @@ public class GestionErgosum {
 
     }
 
-    public List<Categorie> listerToutesLesCategories() {
+    public List<Categorie> listerToutesLesCategories() throws MonException {
         List<Object> rs;
         List<Categorie> mesCategories = new ArrayList<Categorie>();
         int index = 0;
@@ -67,7 +67,7 @@ public class GestionErgosum {
 
     }
 
-    public List<Trancheage> listerToutesLesTranches() {
+    public List<Trancheage> listerToutesLesTranches() throws MonException {
         List<Object> rs;
         List<Trancheage> mesTranches = new ArrayList<Trancheage>();
         int index = 0;
@@ -94,7 +94,7 @@ public class GestionErgosum {
 
     }
 
-    public List<Catalogue> listerTousLesCatalogues() {
+    public List<Catalogue> listerTousLesCatalogues() throws MonException {
         List<Object> rs;
         List<Catalogue> mesCatalogues = new ArrayList<Catalogue>();
         int index = 0;
@@ -118,5 +118,26 @@ public class GestionErgosum {
 
         return mesCatalogues;
 
+    }
+
+    public Jouet rechercherJouet(String id) throws MonException {
+        List<Object> rs;
+
+        String mysql = "";
+
+        mysql = "SELECT * FROM jouet" +
+                "WHERE NUMERO =" + id +
+                " ORDER BY id ASC";
+
+        rs = DialogueBd.lecture(mysql);
+
+        Jouet monJouet = new Jouet();
+        monJouet.setNumero(rs.get(0).toString());
+        monJouet.setCategorie(new Categorie(rs.get(1).toString()));
+        monJouet.setTrancheage(new Trancheage(rs.get(2).toString()));
+        monJouet.setLibelle(rs.get(3).toString());
+
+
+        return monJouet;
     }
 }
