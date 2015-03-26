@@ -47,10 +47,17 @@ public class GestionErgosum {
         int index = 0;
         String mysql = "";
 
-        mysql = "SELECT * FROM jouet" +
-                " WHERE codecateg = " + categorieCode +
-                " AND codetranche = " + trancheCode +
-                " ORDER BY id ASC";
+        mysql = "SELECT * FROM jouet";
+        if (categorieCode != 0) {
+            mysql += " WHERE codecateg = " + categorieCode;
+            if (trancheCode != 0) {
+                mysql += " AND codetranche = " + trancheCode;
+            }
+        }
+        if (trancheCode != 0 && categorieCode ==0) {
+            mysql += " WHERE codetranche = " + trancheCode;
+        }
+        mysql += " ORDER BY numero ASC";
 
         rs = DialogueBd.lecture(mysql);
 
@@ -265,13 +272,14 @@ public class GestionErgosum {
         int i = 0;
         while (i < ids.length) {
             String mysql = "";
-            mysql = "DELETE from jouet where id =" + ids[i] +"" ;
+            mysql = "DELETE from jouet where id =" + ids[i] + "";
             DialogueBd.insertionBD(mysql);
         }
 
 
     }
-// La requete est fausse
+
+    // La requete est fausse
     public int listerCatalogueQuantites(int annee, int nb) throws MonException {
         List<Object> rs;
         int index = 0;
@@ -289,7 +297,7 @@ public class GestionErgosum {
             unC.setAnnee(Integer.valueOf(rs.get(index + 0).toString()));
             unC.setQuantiteDistribuee(Integer.valueOf(rs.get(index + 1).toString()));
 
-            if(unC.getAnnee()>=annee && unC.getAnnee()<=anneefin){
+            if (unC.getAnnee() >= annee && unC.getAnnee() <= anneefin) {
                 quantite = quantite + unC.getQuantiteDistribuee();
             }
             // On incr�mente tous les 2 champs
@@ -300,7 +308,7 @@ public class GestionErgosum {
     }
 
     //a faire
-    public HashMap<Categorie, Integer> rechercherDictionnaire(String annee){
+    public HashMap<Categorie, Integer> rechercherDictionnaire(String annee) {
 
         return null;
     }
