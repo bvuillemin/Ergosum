@@ -73,8 +73,7 @@ public class MultiController extends MultiActionController {
                     categorieCode = Integer.parseInt(categorie);
                     trancheCode = Integer.parseInt(tranche);
                 }
-                request.setAttribute("mesJouets", unService.listerTousLesJouets(categorieCode, trancheCode));
-
+                request.setAttribute("mesJouets", unService.listerTousLesJouets());
                 request.setAttribute("categories", unService.listerToutesLesCategories());
                 request.setAttribute("tranches", unService.listerToutesLesTranches());
             }

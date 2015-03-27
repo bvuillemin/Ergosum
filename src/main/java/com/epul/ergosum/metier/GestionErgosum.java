@@ -19,8 +19,10 @@ public class GestionErgosum {
         int index = 0;
         String mysql = "";
 
-        mysql = "SELECT * FROM jouet" +
-                " ORDER BY id ASC";
+        mysql = "SELECT a.numero, a.codecateg, a.codetranche, a.libelle, b.libcateg, c.agemax, c.agemin\n" +
+                "FROM jouet a, categorie b, trancheage c\n" +
+                "where a.codecateg = b.codecateg\n" +
+                "and a.codetranche = c.codetranche";
 
         rs = DialogueBd.lecture(mysql);
 
@@ -29,11 +31,11 @@ public class GestionErgosum {
             Jouet unJ = new Jouet();
             // il faut redecouper la liste pour retrouver les lignes
             unJ.setNumero(rs.get(index + 0).toString());
-            unJ.setCategorie(new Categorie(rs.get(index + 1).toString()));
-            unJ.setTrancheage(new Trancheage(rs.get(index + 2).toString()));
+            unJ.setCategorie(new Categorie(rs.get(index + 1).toString(), rs.get(index + 4).toString(), null));
+            unJ.setTrancheage(new Trancheage(rs.get(index + 2).toString(), Integer.valueOf(rs.get(index + 5).toString()), Integer.valueOf(rs.get(index + 6).toString()), null));
             unJ.setLibelle(rs.get(index + 3).toString());
-            // On incr�mente tous les 4 champs
-            index = index + 4;
+            // On incr�mente tous les 7 champs
+            index = index + 7;
             mesJouets.add(unJ);
         }
 
