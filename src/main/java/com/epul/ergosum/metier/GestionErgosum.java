@@ -19,7 +19,7 @@ public class GestionErgosum {
         int index = 0;
         String mysql = "";
 
-        mysql = "SELECT a.numero, a.codecateg, a.codetranche, a.libelle, b.libcateg, c.agemax, c.agemin\n" +
+        mysql = "SELECT a.numero, a.codecateg, a.codetranche, a.libelle, b.libcateg, c.agemin, c.agemax\n" +
                 "FROM jouet a, categorie b, trancheage c\n" +
                 "where a.codecateg = b.codecateg\n" +
                 "and a.codetranche = c.codetranche";
