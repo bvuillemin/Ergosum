@@ -352,24 +352,16 @@ public class MultiController extends MultiActionController {
                                              HttpServletResponse response) throws Exception {
 
         String destinationPage = "/Erreur";
-        try
+        String annee = request.getParameter("annee");
+        GestionErgosum unService = new GestionErgosum();
+
+        if (unService != null)
         {
-            String annee = request.getParameter("annee");
-            GestionErgosum unService = new GestionErgosum();
 
-            if (unService != null)
-            {
-
-                HashMap<Categorie, Integer> hashCatInt = unService.rechercherDictionnaire(request.getParameter("annee"));
-                request.setAttribute("dictionnaire", hashCatInt);
-                request.setAttribute("anneecatalogue", annee);
-                destinationPage = "/AfficherDictionnaire";
-            }
-        }
-
-        catch (MonException e)
-        {
-            request.setAttribute("MesErreurs", e.getMessage());
+            HashMap<Categorie, Integer> hashCatInt = unService.rechercherDictionnaire(request.getParameter("annee"));
+            request.setAttribute("dictionnaire", hashCatInt);
+            request.setAttribute("anneecatalogue", annee);
+            destinationPage = "/AfficherDictionnaire";
         }
 
         return new ModelAndView(destinationPage);

@@ -86,8 +86,7 @@ public class GestionErgosum {
         int index = 0;
         String mysql = "";
 
-        mysql = "SELECT * FROM categorie" +
-                " ORDER BY id ASC";
+        mysql = "SELECT * FROM categorie";
 
         rs = DialogueBd.lecture(mysql);
 
@@ -112,8 +111,7 @@ public class GestionErgosum {
         int index = 0;
         String mysql = "";
 
-        mysql = "SELECT * FROM trancheage" +
-                " ORDER BY id ASC";
+        mysql = "SELECT * FROM trancheage";
 
         rs = DialogueBd.lecture(mysql);
 
@@ -139,8 +137,7 @@ public class GestionErgosum {
         int index = 0;
         String mysql = "";
 
-        mysql = "SELECT * FROM catalogue" +
-                " ORDER BY id ASC";
+        mysql = "SELECT * FROM catalogue";
 
         rs = DialogueBd.lecture(mysql);
 
@@ -165,8 +162,7 @@ public class GestionErgosum {
         String mysql = "";
 
         mysql = "SELECT * FROM jouet" +
-                "WHERE NUMERO =" + id +
-                " ORDER BY id ASC";
+                "WHERE NUMERO =" + id;
 
         rs = DialogueBd.lecture(mysql);
 
@@ -186,8 +182,7 @@ public class GestionErgosum {
         String mysql = "";
 
         mysql = "SELECT * FROM categorie" +
-                "WHERE CODECATEG =" + codeCategorie +
-                " ORDER BY id ASC";
+                "WHERE CODECATEG =" + codeCategorie;
 
         rs = DialogueBd.lecture(mysql);
 
@@ -205,8 +200,7 @@ public class GestionErgosum {
         String mysql = "";
 
         mysql = "SELECT * FROM trancheage" +
-                "WHERE CODETRANCHE =" + codetranche +
-                " ORDER BY id ASC";
+                "WHERE CODETRANCHE =" + codetranche;
 
         rs = DialogueBd.lecture(mysql);
 
@@ -224,8 +218,7 @@ public class GestionErgosum {
         String mysql = "";
 
         mysql = "SELECT * FROM catalogue" +
-                "WHERE ANNEE =" + codecatalogue +
-                " ORDER BY id ASC";
+                "WHERE ANNEE =" + codecatalogue;
 
         rs = DialogueBd.lecture(mysql);
 
