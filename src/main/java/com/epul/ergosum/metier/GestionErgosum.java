@@ -161,7 +161,7 @@ public class GestionErgosum {
 
         String mysql = "";
 
-        mysql = "SELECT * FROM jouet" +
+        mysql = "SELECT * FROM jouet " +
                 "WHERE NUMERO =" + id;
 
         rs = DialogueBd.lecture(mysql);
@@ -186,8 +186,8 @@ public class GestionErgosum {
         rs = DialogueBd.lecture(mysql);
 
         Categorie maCategorie = new Categorie();
-        maCategorie.setCodecateg(rs.get(1).toString());
-        maCategorie.setLibcateg(rs.get(2).toString());
+        maCategorie.setCodecateg(rs.get(0).toString());
+        maCategorie.setLibcateg(rs.get(1).toString());
 
 
         return maCategorie;
@@ -198,7 +198,7 @@ public class GestionErgosum {
 
         String mysql = "";
 
-        mysql = "SELECT * FROM trancheage" +
+        mysql = "SELECT * FROM trancheage " +
                 "WHERE CODETRANCHE =" + codetranche;
 
         rs = DialogueBd.lecture(mysql);
@@ -216,7 +216,7 @@ public class GestionErgosum {
 
         String mysql = "";
 
-        mysql = "SELECT * FROM catalogue" +
+        mysql = "SELECT * FROM catalogue " +
                 "WHERE ANNEE =" + codecatalogue;
 
         rs = DialogueBd.lecture(mysql);
@@ -233,10 +233,10 @@ public class GestionErgosum {
         String mysql = "";
 
         mysql = "UPDATE jouet " +
-                "SET CODECATEG = " + unJouet.getCategorie() +
-                "SET CODETRANCHE = " + unJouet.getTrancheage() +
-                "SET LIBELLE = " + unJouet.getLibelle() +
-                "WHERE NUMERO =" + unJouet.getNumero();
+                "SET CODECATEG = " + unJouet.getCategorie().getCodecateg() +
+                " SET CODETRANCHE = " + unJouet.getTrancheage().getCodetranche() +
+                " SET LIBELLE = " + unJouet.getLibelle() +
+                " WHERE NUMERO = " + unJouet.getNumero();
         DialogueBd.insertionBD(mysql);
     }
 
@@ -245,8 +245,8 @@ public class GestionErgosum {
         String mysql = "";
 
         mysql = "INSERT INTO jouet (NUMERO, CODECATEG, CODETRANCHE, LIBELLE) " +
-                " VALUES ( \'" + unJouet.getNumero() + "\', \'" + unJouet.getCategorie() + "\', " +
-                "\' " + unJouet.getTrancheage() + "\', " + "\' " + unJouet.getLibelle() + " )";
+                " VALUES ( \'" + unJouet.getNumero() + "\', \'" + unJouet.getCategorie().getCodecateg() +
+                "\', \'" + unJouet.getTrancheage().getCodetranche() + "\', \'" + unJouet.getLibelle() + "\')";
         DialogueBd.insertionBD(mysql);
     }
 
@@ -256,7 +256,7 @@ public class GestionErgosum {
 
         mysql = "UPDATE catalogue " +
                 "SET quantiteDistribuee = " + leCatalogue.getQuantiteDistribuee() +
-                "WHERE ANNEE =" + leCatalogue.getAnnee();
+                " WHERE ANNEE =" + leCatalogue.getAnnee();
         DialogueBd.insertionBD(mysql);
 
     }

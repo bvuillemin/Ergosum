@@ -58,15 +58,14 @@ public class MultiController extends MultiActionController {
                                           HttpServletResponse response) throws Exception {
 
         String destinationPage = "";
-        try
-        {
+        try {
             GestionErgosum unService = new GestionErgosum();
             if (unService != null) {
                 int categorieCode;
                 int trancheCode;
                 String categorie = request.getParameter("codecateg");
                 String tranche = request.getParameter("codetranche");
-                if(categorie == null && tranche == null) {
+                if (categorie == null && tranche == null) {
                     categorieCode = 0;
                     trancheCode = 0;
                 } else {
@@ -77,17 +76,13 @@ public class MultiController extends MultiActionController {
                 request.setAttribute("categories", unService.listerToutesLesCategories());
                 request.setAttribute("tranches", unService.listerToutesLesTranches());
             }
-        }
-
-        catch (MonException e)
-        {
+        } catch (MonException e) {
             request.setAttribute("MesErreurs", e.getMessage());
         }
         destinationPage = "/ListeJouets";
 
         return new ModelAndView(destinationPage);
     }
-
 
 
     /**
@@ -100,12 +95,10 @@ public class MultiController extends MultiActionController {
 
         String destinationPage = "";
 
-        try
-        {
+        try {
             GestionErgosum unService = new GestionErgosum();
 
-            if (unService != null)
-            {
+            if (unService != null) {
                 // on passe les numÈros de client et de vendeur
                 request.setAttribute("jouet", new Jouet());
                 request.setAttribute("categories", unService.listerToutesLesCategories());
@@ -114,14 +107,12 @@ public class MultiController extends MultiActionController {
 
                 destinationPage = "/AjouterJouet";
             }
-        }  catch (MonException e)
-        {
+        } catch (MonException e) {
             request.setAttribute("MesErreurs", e.getMessage());
         }
 
         return new ModelAndView(destinationPage);
     }
-
 
 
     /**
@@ -146,15 +137,13 @@ public class MultiController extends MultiActionController {
                                        HttpServletResponse response) throws Exception {
 
         String destinationPage = "/Erreur";
-        try
-        {
+        try {
             GestionErgosum unService = new GestionErgosum();
 
             if (unService != null)
                 request.setAttribute("catalogues", unService.listerTousLesCatalogues());
             destinationPage = "/ChoixCatalogue";
-        }  catch (MonException e)
-        {
+        } catch (MonException e) {
             request.setAttribute("MesErreurs", e.getMessage());
         }
 
@@ -172,13 +161,11 @@ public class MultiController extends MultiActionController {
                                       HttpServletResponse response) throws Exception {
 
         String destinationPage = "Erreur";
-        try
-        {
+        try {
             String id = request.getParameter("id");
             GestionErgosum unService = new GestionErgosum();
 
-            if (unService != null)
-            {
+            if (unService != null) {
                 Jouet unJouet = unService.rechercherJouet(id);
                 request.setAttribute("jouet", unJouet);
                 request.setAttribute("categories", unService.listerToutesLesCategories());
@@ -186,19 +173,18 @@ public class MultiController extends MultiActionController {
                 destinationPage = "/ModifierJouet";
             }
 
-        } catch (MonException e)
-        {
+        } catch (MonException e) {
             request.setAttribute("MesErreurs", e.getMessage());
         }
 
 
         return new ModelAndView(destinationPage);
     }
+
     /**
      * Sauver jouet
      */
     @RequestMapping(value = "sauverJouet.htm")
-
     public ModelAndView sauverJouet(HttpServletRequest request,
                                     HttpServletResponse response) throws Exception {
 
@@ -212,37 +198,39 @@ public class MultiController extends MultiActionController {
                 // Si le jouet n'est pas ‡ crÈer, il faut le rÈcupÈrer de la session
                 // courante
                 // Ensuite on peut modifier ses champs
-                if (request.getParameter("ajout").equals("ajout"))
+
+                if (request.getParameter("submit").equals("ajout"))
                     unJouet = new Jouet();
                 else { // on rÈcupËre le jouet courant
 
                     unJouet = unService.rechercherJouet(id);
                 }
-
                 unJouet.setNumero(request.getParameter("id"));
                 unJouet.setLibelle(request.getParameter("libelle"));
-                System.out.println("codecateg=" + request.getParameter("codecateg"));
-                System.out.println("codetranche=" + request.getParameter("codetranche"));
-                Categorie uneCateg = unService.rechercherCategorie(request.getParameter("codecateg"));
+                System.out.println("id=" + request.getParameter("id"));
+                System.out.println("codecateg=" + request.getParameter("categorie"));
+                System.out.println("codetranche=" + request.getParameter("tranche"));
+                Categorie uneCateg = unService.rechercherCategorie(request.getParameter("categorie"));
                 unJouet.setCategorie(uneCateg);
-//J'ai mis en commentaire, car ça bug dans ce coin là. Mais je trouve pas pq categorie marche pas
-               // Trancheage uneTranche = unService.rechercherTrancheage(request.getParameter("codetranche"));
-             //   unJouet.setTrancheage(uneTranche);
+
+                Trancheage uneTranche = unService.rechercherTrancheage(request.getParameter("tranche"));
+                unJouet.setTrancheage(uneTranche);
 
                 // sauvegarde du jouet
-               // if (request.getParameter("modif").equals("modif")) {
-                //    unService.modifier(unJouet);
-               //     destinationPage = "/ListeJouets";
-              //  } else {
-                   // Catalogue leCatalogue = unService.rechercherCatalogue(request.getParameter("codecatalogue"));
+                if (request.getParameter("submit").equals("modif")) {
+                    unService.modifier(unJouet);
+                } else {
+
+                    Catalogue leCatalogue = unService.rechercherCatalogue(request.getParameter("catalogue"));
                     System.out.println("Je suis ‡ la quantitÈ ");
-                   // int quantiteDistribution = Integer.parseInt(request.getParameter("quantiteDistribution"));
-                    /*if (quantiteDistribution > 0) {
+
+                    int quantiteDistribution = Integer.parseInt(request.getParameter("quantiteDistribution"));
+                    if (quantiteDistribution > 0) {
                         leCatalogue.setQuantiteDistribuee(leCatalogue.getQuantiteDistribuee() + quantiteDistribution);
                         unService.modifierCatalogue(leCatalogue);
-                    }*/
+                    }
                     unService.ajouter(unJouet);
-             //   }
+                }
                 try {
                     request.setAttribute("mesJouets", unService.listerTousLesJouets());
                     destinationPage = "/ListeJouets";
@@ -251,9 +239,7 @@ public class MultiController extends MultiActionController {
                 }
 
             }
-        } catch (MonException e) {
-            request.setAttribute("MesErreurs", e.getMessage());
-        } catch (NumberFormatException e) {
+        } catch (Exception e) {
             request.setAttribute("MesErreurs", e.getMessage());
         }
 
@@ -261,45 +247,35 @@ public class MultiController extends MultiActionController {
     }
 
 
-
     /**
-     *  effacer  jouet
+     * effacer  jouet
      */
     @RequestMapping(value = "effacerJouet.htm")
     public ModelAndView effacerJouet(HttpServletRequest request,
                                      HttpServletResponse response) throws Exception {
 
         String destinationPage = "";
-        try
-        {
+        try {
             String id = request.getParameter("id");
             GestionErgosum unService = new GestionErgosum();
 
-            if (unService != null)
-            {
+            if (unService != null) {
                 // recuperation de la liste des id a effacer
                 String[] ids = request.getParameterValues("id");
                 // effacement de la liste des id
-                try
-                {
-                    if (ids != null)
-                    {
+                try {
+                    if (ids != null) {
                         unService.effacer(ids);
                     }
                     // preparation de la liste
                     request.setAttribute("mesJouets", unService.listerTousLesJouets());
-                }
-
-                catch (MonException e)
-                {
+                } catch (MonException e) {
                     request.setAttribute("MesErreurs", e.getMessage());
                 }
 
                 destinationPage = "/ListeJouets";
             }
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             request.setAttribute("MesErreurs", e.getMessage());
         }
         return new ModelAndView(destinationPage);
@@ -307,27 +283,22 @@ public class MultiController extends MultiActionController {
 
 
     /**
-     *  afficher Catalogue
+     * afficher Catalogue
      */
     @RequestMapping(value = "afficherCatalogues.htm")
     public ModelAndView afficherCatalogue(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         String destinationPage = "/Erreur";
-        try
-        {
+        try {
             String id = request.getParameter("id");
             GestionErgosum unService = new GestionErgosum();
 
-            if (unService != null)
-            {
+            if (unService != null) {
                 // preparation de la liste
                 request.setAttribute("mesCataloguesQuantites", unService.listerCatalogueQuantites(Integer.parseInt(request.getParameter("anneeDebut")), Integer.parseInt(request.getParameter("nbAnnees"))));
                 destinationPage = "/AfficherCatalogues";
             }
-        }
-
-        catch (MonException e)
-        {
+        } catch (MonException e) {
             request.setAttribute("MesErreurs", e.getMessage());
         }
 
@@ -335,10 +306,8 @@ public class MultiController extends MultiActionController {
     }
 
 
-
-
     /**
-     *  afficher le Dictionnaire
+     * afficher le Dictionnaire
      */
     @RequestMapping(value = "afficherDictionnaire.htm")
     public ModelAndView afficherDictionnaire(HttpServletRequest request,
@@ -348,8 +317,7 @@ public class MultiController extends MultiActionController {
         String annee = request.getParameter("annee");
         GestionErgosum unService = new GestionErgosum();
 
-        if (unService != null)
-        {
+        if (unService != null) {
 
             HashMap<Categorie, Integer> hashCatInt = unService.rechercherDictionnaire(request.getParameter("annee"));
             request.setAttribute("dictionnaire", hashCatInt);
