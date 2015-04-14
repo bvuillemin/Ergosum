@@ -21,10 +21,10 @@
       <!-- input fields -->
       <div class="panel-body">
         <div class="form-group">
-          <label for="numero" class="col-sm-4 control-label">Numéro</label>
+          <label for="id" class="col-sm-4 control-label">Numéro</label>
 
           <div class="col-sm-6">
-            <input type="number" class="form-control" name="numero" id="numero" required>
+            <input type="number" class="form-control" name="id" id="id" required>
           </div>
         </div>
         <div class="form-group">
@@ -64,7 +64,7 @@
       <!-- Boutons Ajouter/Reset -->
       <div class="panel-footer clearfix">
         <div class="form-group">
-          <button class="btn btn-lg btn-default" type="submit" name="ajouter" value="Ajouter">Ajouter</button>
+          <button class="btn btn-lg btn-default" type="submit" name="ajout" id="submit" value="ajout">Ajouter</button>
           <button class="btn btn-lg btn-default" type="reset" name="reset" value="Reset">Reset</button>
         </div>
       </div>

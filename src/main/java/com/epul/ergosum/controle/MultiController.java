@@ -203,64 +203,57 @@ public class MultiController extends MultiActionController {
                                     HttpServletResponse response) throws Exception {
 
         String destinationPage = "/Erreur";
-        try
-        {
+        try {
             String id = request.getParameter("id");
             GestionErgosum unService = new GestionErgosum();
-            if (unService != null)
-            {
+            if (unService != null) {
 
                 // fabrication du jouet ‡ partir des paramËtres de la requÍte
                 // Si le jouet n'est pas ‡ crÈer, il faut le rÈcupÈrer de la session
                 // courante
                 // Ensuite on peut modifier ses champs
-
-                if (request.getParameter("type").equals("ajout"))
+                if (request.getParameter("ajout").equals("ajout"))
                     unJouet = new Jouet();
-                else
-                { // on rÈcupËre le jouet courant
+                else { // on rÈcupËre le jouet courant
 
                     unJouet = unService.rechercherJouet(id);
                 }
+
                 unJouet.setNumero(request.getParameter("id"));
                 unJouet.setLibelle(request.getParameter("libelle"));
-                System.out.println("codecateg="+request.getParameter("codecateg"));
-                System.out.println("codetranche="+request.getParameter("codetranche"));
+                System.out.println("codecateg=" + request.getParameter("codecateg"));
+                System.out.println("codetranche=" + request.getParameter("codetranche"));
                 Categorie uneCateg = unService.rechercherCategorie(request.getParameter("codecateg"));
                 unJouet.setCategorie(uneCateg);
-
-                Trancheage uneTranche = unService.rechercherTrancheage(request.getParameter("codetranche"));
-                unJouet.setTrancheage(uneTranche);
+//J'ai mis en commentaire, car ça bug dans ce coin là. Mais je trouve pas pq categorie marche pas
+               // Trancheage uneTranche = unService.rechercherTrancheage(request.getParameter("codetranche"));
+             //   unJouet.setTrancheage(uneTranche);
 
                 // sauvegarde du jouet
-                if (request.getParameter("type").equals("modif"))
-                {
-                    unService.modifier(unJouet);
-                } else
-                {
-
-                    Catalogue leCatalogue = unService.rechercherCatalogue(request.getParameter("codecatalogue"));
-                    System.out.println("Je suis ‡ la quantitÈ ");;
-                    int quantiteDistribution = Integer.parseInt(request.getParameter("quantiteDistribution"));
-                    if (quantiteDistribution>0)
-                    {
-                        leCatalogue.setQuantiteDistribuee(leCatalogue.getQuantiteDistribuee()+quantiteDistribution);
+               // if (request.getParameter("modif").equals("modif")) {
+                //    unService.modifier(unJouet);
+               //     destinationPage = "/ListeJouets";
+              //  } else {
+                   // Catalogue leCatalogue = unService.rechercherCatalogue(request.getParameter("codecatalogue"));
+                    System.out.println("Je suis ‡ la quantitÈ ");
+                   // int quantiteDistribution = Integer.parseInt(request.getParameter("quantiteDistribution"));
+                    /*if (quantiteDistribution > 0) {
+                        leCatalogue.setQuantiteDistribuee(leCatalogue.getQuantiteDistribuee() + quantiteDistribution);
                         unService.modifierCatalogue(leCatalogue);
-                    }
+                    }*/
                     unService.ajouter(unJouet);
-                }
-                try
-                {
+             //   }
+                try {
                     request.setAttribute("mesJouets", unService.listerTousLesJouets());
                     destinationPage = "/ListeJouets";
-                } catch (MonException e)
-                {
+                } catch (MonException e) {
                     request.setAttribute("MesErreurs", e.getMessage());
                 }
 
             }
-        } catch (Exception e)
-        {
+        } catch (MonException e) {
+            request.setAttribute("MesErreurs", e.getMessage());
+        } catch (NumberFormatException e) {
             request.setAttribute("MesErreurs", e.getMessage());
         }
 

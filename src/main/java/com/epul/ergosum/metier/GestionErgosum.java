@@ -181,14 +181,13 @@ public class GestionErgosum {
 
         String mysql = "";
 
-        mysql = "SELECT * FROM categorie" +
-                "WHERE CODECATEG =" + codeCategorie;
+        mysql = "SELECT * FROM categorie WHERE CODECATEG = " + codeCategorie;
 
         rs = DialogueBd.lecture(mysql);
 
         Categorie maCategorie = new Categorie();
-        maCategorie.setCodecateg(rs.get(0).toString());
-        maCategorie.setLibcateg(rs.get(1).toString());
+        maCategorie.setCodecateg(rs.get(1).toString());
+        maCategorie.setLibcateg(rs.get(2).toString());
 
 
         return maCategorie;
