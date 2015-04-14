@@ -22,6 +22,7 @@
         <TH class="perso">Libellé</TH>
         <TH class="perso">Catégorie</TH>
         <TH class="perso">Tranche Age</TH>
+        <TH class="perso">Modifier</TH>
     </TR>
     <thead>
     <tbody>
@@ -29,7 +30,13 @@
     <tr>
         <td>${item.libelle}</td>
         <td>${item.categorie.libcateg}</td>
-        <td>${item.trancheage.agemin} - ${item.trancheage.agemax}</td>
+        <td>${item.trancheage.agemin} à ${item.trancheage.agemax} ans</td>
+        <td>
+            <form method="post" action="modifierJouet.htm">
+            <input type="hidden" name="id" value="${item.numero}"/>
+                <input class="btn btn-xs btn-default" type="submit" name="modifier" value="Modifier"/>
+            </form>
+        </td>
     </tr>
     </c:forEach>
     <tbody>

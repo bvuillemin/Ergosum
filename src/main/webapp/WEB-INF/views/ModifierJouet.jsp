@@ -25,14 +25,16 @@
                     <label for="id" class="col-sm-4 control-label">Numéro</label>
 
                     <div class="col-sm-6">
-                        <input type="number" class="form-control" name="id" id="id" required>
+                        <input type="number" class="form-control" name="id" id="id" value="${id}"
+                               >
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="libelle" class="col-sm-4 control-label">Libellé</label>
 
                     <div class="col-sm-6">
-                        <input type="text" class="form-control" name="libelle" id="libelle" required>
+                        <input type="text" class="form-control" name="libelle" id="libelle"
+                               value="${libelle}" required>
                     </div>
                 </div>
                 <div class="form-group">
@@ -41,7 +43,12 @@
                     <div class="col-sm-6">
                         <SELECT class="form-control" name="categorie" size="1" id="categorie">
                             <c:forEach items="${categories}" var="itemcateg">
-                                <OPTION value="${itemcateg.codecateg}">${itemcateg.libcateg}</option>
+                                <c:if test="${itemcateg.codecateg == codcateg}">
+                                    <OPTION selected value="${itemcateg.codecateg}">${itemcateg.libcateg}</option>
+                                </c:if>
+                                <c:if test="${itemcateg.codecateg != codcateg}">
+                                    <OPTION value="${itemcateg.codecateg}">${itemcateg.libcateg}</option>
+                                </c:if>
                             </c:forEach>
                         </SELECT>
                     </div>
@@ -52,28 +59,16 @@
                     <div class="col-sm-6">
                         <SELECT class="form-control" name="tranche" size="1" id="tranche">
                             <c:forEach items="${tranches}" var="itemtranche">
-                                <OPTION value="${itemtranche.codetranche}">${itemtranche.agemin} à ${itemtranche.agemax}
+                                <c:if test="${itemtranche.codetranche == jouet.getTrancheage().getCodetranche()}">
+                                <OPTION selected value="${itemtranche.codetranche}">${itemtranche.agemin} à ${itemtranche.agemax}
                                     ans
                                 </option>
-                            </c:forEach>
-                        </SELECT>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="quantiteDistribution" class="col-sm-4 control-label">Quantité de distribution</label>
-
-                    <div class="col-sm-6">
-                        <input type="number" class="form-control" name="quantiteDistribution" id="quantiteDistribution"
-                               required>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="catalogue" class="col-sm-4 control-label">Dans le catalogue</label>
-
-                    <div class="col-sm-6">
-                        <SELECT class="form-control" name="catalogue" size="1" id="catalogue">
-                            <c:forEach items="${catalogues}" var="itemcata">
-                                <OPTION value="${itemcata.annee}">${itemcata.annee}</option>
+                                </c:if>
+                                <c:if test="${itemtranche.codetranche != jouet.getTrancheage().getCodetranche()}">
+                                    <OPTION value="${itemtranche.codetranche}">${itemtranche.agemin} à ${itemtranche.agemax}
+                                        ans
+                                    </option>
+                                </c:if>
                             </c:forEach>
                         </SELECT>
                     </div>
@@ -82,8 +77,8 @@
             <!-- Boutons Ajouter/Reset -->
             <div class="panel-footer clearfix">
                 <div class="form-group">
-                    <button class="btn btn-lg btn-default" type="submit" name="submit" id="submit" value="ajout">
-                        Ajouter
+                    <button class="btn btn-lg btn-default" type="submit" name="submit" id="submit" value="modif">
+                        Modifier
                     </button>
                     <button class="btn btn-lg btn-default" type="reset" name="reset" value="Reset">Reset</button>
                 </div>

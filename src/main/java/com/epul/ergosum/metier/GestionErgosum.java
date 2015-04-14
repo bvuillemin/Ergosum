@@ -234,8 +234,8 @@ public class GestionErgosum {
 
         mysql = "UPDATE jouet " +
                 "SET CODECATEG = " + unJouet.getCategorie().getCodecateg() +
-                " SET CODETRANCHE = " + unJouet.getTrancheage().getCodetranche() +
-                " SET LIBELLE = " + unJouet.getLibelle() +
+                ", CODETRANCHE = " + unJouet.getTrancheage().getCodetranche() +
+                ", LIBELLE = " + "\'" +unJouet.getLibelle() + "\'" +
                 " WHERE NUMERO = " + unJouet.getNumero();
         DialogueBd.insertionBD(mysql);
     }

@@ -168,6 +168,10 @@ public class MultiController extends MultiActionController {
             if (unService != null) {
                 Jouet unJouet = unService.rechercherJouet(id);
                 request.setAttribute("jouet", unJouet);
+                request.setAttribute("id", unJouet.getNumero());
+                request.setAttribute("libelle", unJouet.getLibelle());
+                request.setAttribute("codcateg", unJouet.getCategorie().getCodecateg());
+                request.setAttribute("codtranche", unJouet.getTrancheage().getCodetranche());
                 request.setAttribute("categories", unService.listerToutesLesCategories());
                 request.setAttribute("tranches", unService.listerToutesLesTranches());
                 destinationPage = "/ModifierJouet";
