@@ -211,7 +211,6 @@ public class MultiController extends MultiActionController {
                 }
                 unJouet.setNumero(request.getParameter("id"));
                 unJouet.setLibelle(request.getParameter("libelle"));
-                System.out.println("id=" + request.getParameter("id"));
                 System.out.println("codecateg=" + request.getParameter("categorie"));
                 System.out.println("codetranche=" + request.getParameter("tranche"));
                 Categorie uneCateg = unService.rechercherCategorie(request.getParameter("categorie"));
@@ -227,13 +226,14 @@ public class MultiController extends MultiActionController {
 
                     Catalogue leCatalogue = unService.rechercherCatalogue(request.getParameter("catalogue"));
                     System.out.println("Je suis ‡ la quantitÈ ");
-
+                    Comporte c = new Comporte(Integer.valueOf(request.getParameter("catalogue")),
+                            Integer.valueOf(request.getParameter("id")), Integer.valueOf(request.getParameter("quantiteDistribution")));
                     int quantiteDistribution = Integer.parseInt(request.getParameter("quantiteDistribution"));
                     if (quantiteDistribution > 0) {
                         leCatalogue.setQuantiteDistribuee(leCatalogue.getQuantiteDistribuee() + quantiteDistribution);
                         unService.modifierCatalogue(leCatalogue);
                     }
-                    unService.ajouter(unJouet);
+                    unService.ajouter(unJouet, c);
                 }
                 try {
                     request.setAttribute("mesJouets", unService.listerTousLesJouets());
@@ -294,7 +294,6 @@ public class MultiController extends MultiActionController {
 
         String destinationPage = "/Erreur";
         try {
-            String id = request.getParameter("id");
             GestionErgosum unService = new GestionErgosum();
 
             if (unService != null) {

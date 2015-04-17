@@ -5,8 +5,8 @@
 <html>
 <head>
     <title>Affichage de la liste des jouets</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/rerources/css/main.css">
 </head>
 <body>
 <A href="Accueil.htm" class="btn btn-sm btn-default">
@@ -23,26 +23,33 @@
         <TH class="perso">Catégorie</TH>
         <TH class="perso">Tranche Age</TH>
         <TH class="perso">Modifier</TH>
+        <TH class="perso">Supprimer</TH>
     </TR>
-    <thead>
+    </thead>
     <tbody>
     <c:forEach items="${mesJouets}" var="item">
-    <tr>
-        <td>${item.libelle}</td>
-        <td>${item.categorie.libcateg}</td>
-        <td>${item.trancheage.agemin} à ${item.trancheage.agemax} ans</td>
-        <td>
-            <form method="post" action="modifierJouet.htm">
-            <input type="hidden" name="id" value="${item.numero}"/>
-                <input class="btn btn-xs btn-default" type="submit" name="modifier" value="Modifier"/>
-            </form>
-        </td>
-    </tr>
+        <tr>
+            <td>${item.libelle}</td>
+            <td>${item.categorie.libcateg}</td>
+            <td>${item.trancheage.agemin} à ${item.trancheage.agemax} ans</td>
+            <td>
+                <form method="post" action="modifierJouet.htm">
+                    <input type="hidden" name="id" value="${item.numero}"/>
+                    <input class="btn btn-xs btn-default" type="submit" name="modifier" value="Modifier"/>
+                </form>
+            </td>
+            <td>
+                <form method="post" action="effacerJouet.htm">
+                    <input type="hidden" name="id" value="${item.numero}"/>
+                    <input class="btn btn-xs btn-default" type="submit" name="supprimer" value="Supprimer"/>
+                </form>
+            </td>
+        </tr>
     </c:forEach>
-    <tbody>
+    </tbody>
 </TABLE>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<script src="/resources/js/jquery.min.js"></script>
+<script src="/resources/js/bootstrap.min.js"></script>
 </body>
 </html>

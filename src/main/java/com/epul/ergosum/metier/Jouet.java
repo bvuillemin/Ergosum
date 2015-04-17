@@ -14,7 +14,6 @@ public class Jouet implements java.io.Serializable {
 	private Categorie categorie;
 	private Trancheage trancheage;
 	private String libelle;
-	private Set comportes = new HashSet(0);
 
 	public Jouet() {
 	}
@@ -25,53 +24,42 @@ public class Jouet implements java.io.Serializable {
 		this.trancheage = trancheage;
 	}
 
-	public Jouet(String numero, Categorie categorie, Trancheage trancheage,
-			String libelle, Set comportes) {
-		this.numero = numero;
-		this.categorie = categorie;
-		this.trancheage = trancheage;
-		this.libelle = libelle;
-		this.comportes = comportes;
-	}
+    public Jouet(String numero, Categorie categorie, Trancheage trancheage, String libelle) {
+        this.numero = numero;
+        this.categorie = categorie;
+        this.trancheage = trancheage;
+        this.libelle = libelle;
+    }
 
-	public String getNumero() {
-		return this.numero;
-	}
+    public String getNumero() {
+        return numero;
+    }
 
-	public void setNumero(String numero) {
-		this.numero = numero;
-	}
+    public void setNumero(String numero) {
+        this.numero = numero;
+    }
 
-	public Categorie getCategorie() {
-		return this.categorie;
-	}
+    public Categorie getCategorie() {
+        return categorie;
+    }
 
-	public void setCategorie(Categorie categorie) {
-		this.categorie = categorie;
-	}
+    public void setCategorie(Categorie categorie) {
+        this.categorie = categorie;
+    }
 
-	public Trancheage getTrancheage() {
-		return this.trancheage;
-	}
+    public Trancheage getTrancheage() {
+        return trancheage;
+    }
 
-	public void setTrancheage(Trancheage trancheage) {
-		this.trancheage = trancheage;
-	}
+    public void setTrancheage(Trancheage trancheage) {
+        this.trancheage = trancheage;
+    }
 
-	public String getLibelle() {
-		return this.libelle;
-	}
+    public String getLibelle() {
+        return libelle;
+    }
 
-	public void setLibelle(String libelle) {
-		this.libelle = libelle;
-	}
-
-	public Set getComportes() {
-		return this.comportes;
-	}
-
-	public void setComportes(Set comportes) {
-		this.comportes = comportes;
-	}
-
+    public void setLibelle(String libelle) {
+        this.libelle = libelle;
+    }
 }

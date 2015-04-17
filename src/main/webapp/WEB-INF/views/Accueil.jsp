@@ -19,6 +19,10 @@
     <dt><a href="ajouterJouet.htm">Ajout</a></dt>
     <dd>Pour ajouter un jouet</dd>
 </dl>
+<dl class="dl-horizontal">
+    <dt><a href="listerCatalogue.htm">Afficher les catalogues</a></dt>
+    <dd>Pour afficher les catalogues</dd>
+</dl>
 <script src="/resources/js/jquery.min.js"></script>
 <script src="/resources/js/bootstrap.min.js"></script>
 </body>

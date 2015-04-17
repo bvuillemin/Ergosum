@@ -56,7 +56,7 @@ public class GestionErgosum {
                 mysql += " AND codetranche = " + trancheCode;
             }
         }
-        if (trancheCode != 0 && categorieCode ==0) {
+        if (trancheCode != 0 && categorieCode == 0) {
             mysql += " WHERE codetranche = " + trancheCode;
         }
         mysql += " ORDER BY numero ASC";
@@ -235,12 +235,12 @@ public class GestionErgosum {
         mysql = "UPDATE jouet " +
                 "SET CODECATEG = " + unJouet.getCategorie().getCodecateg() +
                 ", CODETRANCHE = " + unJouet.getTrancheage().getCodetranche() +
-                ", LIBELLE = " + "\'" +unJouet.getLibelle() + "\'" +
+                ", LIBELLE = " + "\'" + unJouet.getLibelle() + "\'" +
                 " WHERE NUMERO = " + unJouet.getNumero();
         DialogueBd.insertionBD(mysql);
     }
 
-    public void ajouter(Jouet unJouet) throws MonException {
+    public void ajouter(Jouet unJouet, Comporte c) throws MonException {
 
         String mysql = "";
 
@@ -248,6 +248,12 @@ public class GestionErgosum {
                 " VALUES ( \'" + unJouet.getNumero() + "\', \'" + unJouet.getCategorie().getCodecateg() +
                 "\', \'" + unJouet.getTrancheage().getCodetranche() + "\', \'" + unJouet.getLibelle() + "\')";
         DialogueBd.insertionBD(mysql);
+        if (c != null) {
+            mysql = "INSERT INTO comporte (ANNEE, NUMERO, QUANTITE) " +
+                    " VALUES ( \'" + c.getAnnee() + "\', \'" + c.getNumero() +
+                    "\', \'" + c.getQuantite() + "\')";
+            DialogueBd.insertionBD(mysql);
+        }
     }
 
     public void modifierCatalogue(Catalogue leCatalogue) throws MonException {
@@ -262,43 +268,44 @@ public class GestionErgosum {
     }
 
     public void effacer(String[] ids) throws MonException {
-
-        int i = 0;
-        while (i < ids.length) {
-            String mysql = "";
-            mysql = "DELETE from jouet where id =" + ids[i] + "";
+        String mysql = "";
+        for (int i = 0; i < ids.length; i++) {
+            mysql = "DELETE from comporte where NUMERO = " + ids[i];
+            DialogueBd.insertionBD(mysql);
+            mysql = "DELETE from jouet where NUMERO = " + ids[i];
             DialogueBd.insertionBD(mysql);
         }
 
 
     }
 
-    // La requete est fausse
-    public int listerCatalogueQuantites(int annee, int nb) throws MonException {
+    public List<Comporte> listerCatalogueQuantites(int annee, int nb) throws MonException {
         List<Object> rs;
         int index = 0;
         int anneefin = annee + nb;
         int quantite = 0;
+        List<Comporte> mescomporte = new ArrayList<Comporte>();
 
-        String mysql = "";
-        mysql = "SELECT * FROM catalogue"; // il faut aller chercher la quantité cf image
+        String mysql = "SELECT a.ANNEE, a.QUANTITE, b.QUANTITEDISTRIBUEE " +
+                "FROM COMPORTE a, CATALOGUE b " +
+                "WHERE a.ANNEE = b.ANNEE " +
+                "AND a.ANNEE >= " + annee +
+                " AND a.ANNEE < " + anneefin;
+
         rs = DialogueBd.lecture(mysql);
 
         while (index < rs.size()) {
             // On cr�e un stage
-            Catalogue unC = new Catalogue();
+            Comporte unC = new Comporte();
             // il faut redecouper la liste pour retrouver les lignes
             unC.setAnnee(Integer.valueOf(rs.get(index + 0).toString()));
-            unC.setQuantiteDistribuee(Integer.valueOf(rs.get(index + 1).toString()));
-
-            if (unC.getAnnee() >= annee && unC.getAnnee() <= anneefin) {
-                quantite = quantite + unC.getQuantiteDistribuee();
-            }
-            // On incr�mente tous les 2 champs
-            index = index + 2;
+            unC.setQuantite(Integer.valueOf(rs.get(index + 1).toString()));
+            unC.setQuantite_distribuee(Integer.valueOf(rs.get(index + 2).toString()));
+            // On incr�mente tous les 3 champs
+            index = index + 3;
+            mescomporte.add(unC);
         }
-
-        return quantite;
+        return mescomporte;
     }
 
     //a faire
