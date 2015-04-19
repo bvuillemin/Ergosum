@@ -21,8 +21,8 @@
 <TABLE class="table table-striped">
     <thead>
     <TR>
-        <TH class="perso">Catégorie</TH>
-        <TH class="perso">Quantité distribuée</TH>
+        <TH class="perso">CatÃ©gorie</TH>
+        <TH class="perso">QuantitÃ© distribuÃ©e</TH>
     </TR>
     </thead>
     <tbody>
