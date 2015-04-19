@@ -15,13 +15,14 @@
     <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
     <span class="glyphicon-class">Retour accueil</span>
 </A>
+<h3>Choix du catalogue</h3>
 <form class="form-horizontal" method="post" action="afficherCatalogues.htm" onsubmit="return verif();">
     <fieldset>
         <div class="panel panel-default">
             <!-- input fields -->
             <div class="panel-body">
                 <div class="form-group">
-                    <label for="anneeDebut" class="col-sm-4 control-label">Dans le catalogue</label>
+                    <label for="anneeDebut" class="col-sm-4 control-label">Année de départ</label>
 
                     <div class="col-sm-6">
                         <SELECT class="form-control" name="anneeDebut" size="1" id="anneeDebut">
@@ -32,7 +33,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="nbAnnees" class="col-sm-4 control-label">Dans le catalogue</label>
+                    <label for="nbAnnees" class="col-sm-4 control-label">Nombre d'années</label>
 
                     <div class="col-sm-6">
                         <input type="number" class="form-control" name="nbAnnees" id="nbAnnees" required>

@@ -308,10 +308,57 @@ public class GestionErgosum {
         return mescomporte;
     }
 
-    //a faire
-    public HashMap<Categorie, Integer> rechercherDictionnaire(String annee) {
+    public HashMap<Categorie, Integer> rechercherDictionnaire(String annee) throws MonException {
+        List<Object> rs;
+        int index = 0;
+        HashMap<Categorie, Integer> resultat = new HashMap<Categorie, Integer>();
 
-        return null;
+        String mysql = "SELECT d.LIBCATEG, SUM(f.QUANTITE) "+
+                "FROM CATEGORIE d, JOUET e, COMPORTE f "+
+                "WHERE d.CODECATEG = e.CODECATEG "+
+                "AND e.NUMERO = f.NUMERO "+
+                "AND f.ANNEE = "+ annee + " " +
+                "GROUP BY d.LIBCATEG";
+        System.out.println(mysql);
+        rs = DialogueBd.lecture(mysql);
+
+        while (index < rs.size()) {
+            // On cr�e un stage
+            Categorie uneC = new Categorie();
+            int valeur;
+            // il faut redecouper la liste pour retrouver les lignes
+            uneC.setLibcateg(rs.get(index + 0).toString());
+            valeur = Integer.valueOf(rs.get(index + 1).toString());
+            // On incr�mente tous les 2 champs
+            index = index + 2;
+            resultat.put(uneC, valeur);
+        }
+        return resultat;
     }
+    public HashMap<Categorie, Integer> rechercherTotalDictionnaire(String annee) throws MonException {
+        List<Object> rs;
+        int index = 0;
+        HashMap<Categorie, Integer> resultat = new HashMap<Categorie, Integer>();
 
+        String mysql = "SELECT \"Total\", SUM(c.QUANTITE) " +
+        "FROM CATEGORIE a, JOUET b, COMPORTE c " +
+        "WHERE a.CODECATEG = b.CODECATEG " +
+        "AND b.NUMERO = c.NUMERO " +
+        "AND c.ANNEE = " + annee;
+        System.out.println(mysql);
+        rs = DialogueBd.lecture(mysql);
+
+        while (index < rs.size()) {
+            // On cr�e un stage
+            Categorie uneC = new Categorie();
+            int valeur;
+            // il faut redecouper la liste pour retrouver les lignes
+            uneC.setLibcateg(rs.get(index + 0).toString());
+            valeur = Integer.valueOf(rs.get(index + 1).toString());
+            // On incr�mente tous les 2 champs
+            index = index + 2;
+            resultat.put(uneC, valeur);
+        }
+        return resultat;
+    }
 }

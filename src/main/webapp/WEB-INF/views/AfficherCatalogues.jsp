@@ -16,7 +16,7 @@
     <span class="glyphicon-class">Retour accueil</span>
 </A>
 
-<h3>Liste des catalogues pour l'intervalle choisi</h3>
+<h3>Voici la liste des catalogues pour l'intervalle choisi</h3>
 
 <TABLE class="table table-striped">
     <thead>

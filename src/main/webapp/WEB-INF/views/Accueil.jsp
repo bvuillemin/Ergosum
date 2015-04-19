@@ -23,6 +23,10 @@
     <dt><a href="listerCatalogue.htm">Afficher les catalogues</a></dt>
     <dd>Pour afficher les catalogues</dd>
 </dl>
+<dl class="dl-horizontal">
+    <dt><a href="selectionnerAnnee.htm">Afficher les dictionnaires</a></dt>
+    <dd>Pour afficher les catalogues</dd>
+</dl>
 <script src="/resources/js/jquery.min.js"></script>
 <script src="/resources/js/bootstrap.min.js"></script>
 </body>

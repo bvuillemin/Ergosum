@@ -57,29 +57,18 @@ public class MultiController extends MultiActionController {
     public ModelAndView afficherLesJouets(HttpServletRequest request,
                                           HttpServletResponse response) throws Exception {
 
-        String destinationPage = "";
+        String destinationPage = "/Erreur";
         try {
             GestionErgosum unService = new GestionErgosum();
             if (unService != null) {
-                int categorieCode;
-                int trancheCode;
-                String categorie = request.getParameter("codecateg");
-                String tranche = request.getParameter("codetranche");
-                if (categorie == null && tranche == null) {
-                    categorieCode = 0;
-                    trancheCode = 0;
-                } else {
-                    categorieCode = Integer.parseInt(categorie);
-                    trancheCode = Integer.parseInt(tranche);
-                }
                 request.setAttribute("mesJouets", unService.listerTousLesJouets());
                 request.setAttribute("categories", unService.listerToutesLesCategories());
                 request.setAttribute("tranches", unService.listerToutesLesTranches());
+                destinationPage = "/ListeJouets";
             }
         } catch (MonException e) {
             request.setAttribute("MesErreurs", e.getMessage());
         }
-        destinationPage = "/ListeJouets";
 
         return new ModelAndView(destinationPage);
     }
@@ -123,8 +112,18 @@ public class MultiController extends MultiActionController {
     public ModelAndView selectionAnnee(HttpServletRequest request,
                                        HttpServletResponse response) throws Exception {
 
-        String destinationPage = "";
-        destinationPage = "/selectionAnneeCat";
+        String destinationPage = "/Erreur";
+        try {
+            GestionErgosum unService = new GestionErgosum();
+
+            if (unService != null)
+                request.setAttribute("catalogues", unService.listerTousLesCatalogues());
+            destinationPage = "/SelectionAnneeCat";
+        } catch (MonException e) {
+            request.setAttribute("MesErreurs", e.getMessage());
+        }
+
+
         return new ModelAndView(destinationPage);
     }
 
@@ -322,8 +321,10 @@ public class MultiController extends MultiActionController {
 
         if (unService != null) {
 
-            HashMap<Categorie, Integer> hashCatInt = unService.rechercherDictionnaire(request.getParameter("annee"));
+            HashMap<Categorie, Integer> hashCatInt = unService.rechercherDictionnaire(annee);
+            HashMap<Categorie, Integer> hashCatIntTotal = unService.rechercherTotalDictionnaire(annee);
             request.setAttribute("dictionnaire", hashCatInt);
+            request.setAttribute("totaldictionnaire", hashCatIntTotal);
             request.setAttribute("anneecatalogue", annee);
             destinationPage = "/AfficherDictionnaire";
         }
