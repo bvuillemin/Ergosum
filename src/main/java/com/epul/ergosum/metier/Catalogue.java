@@ -3,6 +3,7 @@ package com.epul.ergosum.metier;
 
 // Generated 24 avr. 2014 11:38:54 by Hibernate Tools 4.0.0
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -13,7 +14,7 @@ public class Catalogue implements java.io.Serializable {
 
 	private int annee;
 	private int quantiteDistribuee;
-	private Set comportes = new HashSet(0);
+	private HashMap<Categorie, Integer> statcategorie;
 
 	public Catalogue() {
 	}
@@ -23,11 +24,6 @@ public class Catalogue implements java.io.Serializable {
 		this.quantiteDistribuee = quantiteDistribuee;
 	}
 
-	public Catalogue(int annee, int quantiteDistribuee, Set comportes) {
-		this.annee = annee;
-		this.quantiteDistribuee = quantiteDistribuee;
-		this.comportes = comportes;
-	}
 
 	public int getAnnee() {
 		return this.annee;
@@ -45,12 +41,12 @@ public class Catalogue implements java.io.Serializable {
 		this.quantiteDistribuee = quantiteDistribuee;
 	}
 
-	public Set getComportes() {
-		return this.comportes;
+	public HashMap<Categorie, Integer> Statcategorie() {
+		return statcategorie;
 	}
 
-	public void setComportes(Set comportes) {
-		this.comportes = comportes;
+	public void setStatcategorie(HashMap<Categorie, Integer> statcategorie) {
+		this.statcategorie = statcategorie;
 	}
 
 }

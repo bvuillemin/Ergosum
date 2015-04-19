@@ -15,17 +15,19 @@
     <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
     <span class="glyphicon-class">Retour accueil</span>
 </A>
-<h3>Choix du catalogue</h3>
-<form class="form-horizontal" method="post" action="afficherCatalogues.htm" onsubmit="return verif();">
+
+<h3>Choix de la période et de la catégorie</h3>
+
+<form class="form-horizontal" method="post" action="afficherDictionnaireCateg.htm" onsubmit="return verif();">
     <fieldset>
         <div class="panel panel-default">
             <!-- input fields -->
             <div class="panel-body">
                 <div class="form-group">
-                    <label for="anneeDebut" class="col-sm-4 control-label">Année de départ</label>
+                    <label for="annee" class="col-sm-4 control-label">Année de départ</label>
 
                     <div class="col-sm-6">
-                        <SELECT class="form-control" name="anneeDebut" size="1" id="anneeDebut">
+                        <SELECT class="form-control" name="annee" size="1" id="annee">
                             <c:forEach items="${catalogues}" var="itemcata">
                                 <OPTION value="${itemcata.annee}">${itemcata.annee}</option>
                             </c:forEach>
@@ -33,10 +35,22 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="nbAnnees" class="col-sm-4 control-label">Nombre d'années</label>
+                    <label for="duree" class="col-sm-4 control-label">Nombre d'années</label>
 
                     <div class="col-sm-6">
-                        <input type="number" class="form-control" name="nbAnnees" id="nbAnnees" value="1" required>
+                        <input type="number" class="form-control" name="duree" id="duree" value="1"
+                               required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="categorie" class="col-sm-4 control-label">Catégorie</label>
+
+                    <div class="col-sm-6">
+                        <SELECT class="form-control" name="categorie" size="1" id="categorie">
+                            <c:forEach items="${categories}" var="itemcateg">
+                                <OPTION value="${itemcateg.codecateg}">${itemcateg.libcateg}</option>
+                            </c:forEach>
+                        </SELECT>
                     </div>
                 </div>
             </div>

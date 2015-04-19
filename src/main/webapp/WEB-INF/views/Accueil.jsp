@@ -24,8 +24,12 @@
     <dd>Pour afficher les catalogues</dd>
 </dl>
 <dl class="dl-horizontal">
-    <dt><a href="selectionnerAnnee.htm">Afficher les dictionnaires</a></dt>
-    <dd>Pour afficher les catalogues</dd>
+    <dt><a href="selectionnerAnnee.htm">Afficher le dictionnaire</a></dt>
+    <dd>Pour afficher le dictionnaire</dd>
+</dl>
+<dl class="dl-horizontal">
+    <dt><a href="selectionnerAnneeCateg.htm">Afficher les quantités</a></dt>
+    <dd>Pour afficher les quantités distribuées pour une catégorie défnine</dd>
 </dl>
 <script src="/resources/js/jquery.min.js"></script>
 <script src="/resources/js/bootstrap.min.js"></script>

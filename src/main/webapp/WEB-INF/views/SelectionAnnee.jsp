@@ -15,28 +15,21 @@
     <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
     <span class="glyphicon-class">Retour accueil</span>
 </A>
-<h3>Choix du catalogue</h3>
-<form class="form-horizontal" method="post" action="afficherCatalogues.htm" onsubmit="return verif();">
+<h3>Choix du dictionnaire</h3>
+<form class="form-horizontal" method="post" action="afficherDictionnaire.htm" onsubmit="return verif();">
     <fieldset>
         <div class="panel panel-default">
             <!-- input fields -->
             <div class="panel-body">
                 <div class="form-group">
-                    <label for="anneeDebut" class="col-sm-4 control-label">Année de départ</label>
+                    <label for="annee" class="col-sm-4 control-label">Catalogue</label>
 
                     <div class="col-sm-6">
-                        <SELECT class="form-control" name="anneeDebut" size="1" id="anneeDebut">
+                        <SELECT class="form-control" name="annee" size="1" id="annee">
                             <c:forEach items="${catalogues}" var="itemcata">
                                 <OPTION value="${itemcata.annee}">${itemcata.annee}</option>
                             </c:forEach>
                         </SELECT>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="nbAnnees" class="col-sm-4 control-label">Nombre d'années</label>
-
-                    <div class="col-sm-6">
-                        <input type="number" class="form-control" name="nbAnnees" id="nbAnnees" value="1" required>
                     </div>
                 </div>
             </div>
