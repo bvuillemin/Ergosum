@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="war" build-on-make="true" name="Ergosum:war">
-    <output-path>$PROJECT_DIR$/target</output-path>
-    <root id="archive" name="Ergosum.war">
-      <element id="artifact" artifact-name="Ergosum:war exploded" />
-    </root>
-  </artifact>
-</component>
