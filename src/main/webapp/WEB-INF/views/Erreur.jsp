@@ -1,14 +1,18 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-         pageEncoding="ISO-8859-1" %>
 <!DOCTYPE html>
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>Gestion des jouets</title>
+    <title>:(</title>
     <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
     <link rel="stylesheet" href="/resources/css/main.css">
+    <style type="text/css">
+        body {
+            color: #FFFFFF;
+            background-color: #1173AA;
+            margin-left: 50px;
+            margin-right: 50px;
+        }
+    </style>
+
 </head>
 <body>
 <nav class="navbar navbar-default navbar-fixed-top">
@@ -55,29 +59,21 @@
     <!-- /.container-fluid -->
 </nav>
 <div class="container">
-    <h3>Voici la liste des catalogues pour l'intervalle choisi</h3>
+    <div class="span12">
+        <br><br>
 
-    <TABLE class="table table-striped">
-        <thead>
-        <TR>
-            <TH class="perso">Année</TH>
-            <TH class="perso">Quantité affectée</TH>
-            <TH class="perso">Quantité distribuée</TH>
-            <TH class="perso">Différence</TH>
-        </TR>
-        </thead>
-        <tbody>
-        <c:forEach items="${mesCataloguesQuantites}" var="item">
-            <tr>
-                <td>${item.annee}</td>
-                <td>${item.quantite}</td>
-                <td>${item.quantite_distribuee}</td>
-                <td>${item.difference}</td>
-            </tr>
-        </c:forEach>
-        </tbody>
-    </TABLE>
+        <p id="face">:(</p><br><br>
+
+        <p id="description">Your website ran into a problem that it couldn't handle, and now it needs to restart.</p>
+
+        <p><br></p>
+
+        <p id="guide">You can search for the error online:<br>${MesErreurs}</p>
+    </div>
+    <!-- span12 -->
 </div>
+<!-- container -->
+
 <script src="/resources/js/jquery.min.js"></script>
 <script src="/resources/js/bootstrap.min.js"></script>
 </body>

@@ -1,0 +1,35 @@
+body {
+    padding-top: 70px;
+}
+
+#face {
+    font-size: 110pt;
+    font-family: "trebuchet MS", Verdana, sans-serif;
+}
+
+#description {
+    font-size: 20pt;
+    font-family: "trebuchet MS", Verdana, sans-serif;
+    margin-left: 10px;
+}
+
+#guide {
+    font-size: 12pt;
+    font-family: "trebuchet MS", Verdana, sans-serif;
+    margin-left: 10px;
+}
+
+.table tbody > tr > td {
+    vertical-align: middle;
+}
+
+.panel-footer {
+    vertical-align: middle;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.center_div {
+    margin: 0 auto;
+    width: 80%
+}

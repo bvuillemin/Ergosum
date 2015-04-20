@@ -130,10 +130,12 @@ public class GestionErgosum {
         rs = DialogueBd.lecture(mysql);
 
         Jouet monJouet = new Jouet();
-        monJouet.setNumero(rs.get(0).toString());
-        monJouet.setCategorie(new Categorie(rs.get(1).toString()));
-        monJouet.setTrancheage(new Trancheage(rs.get(2).toString()));
-        monJouet.setLibelle(rs.get(3).toString());
+        if (rs.size() != 0) {
+            monJouet.setNumero(rs.get(0).toString());
+            monJouet.setCategorie(new Categorie(rs.get(1).toString()));
+            monJouet.setTrancheage(new Trancheage(rs.get(2).toString()));
+            monJouet.setLibelle(rs.get(3).toString());
+        }
 
 
         return monJouet;
@@ -149,8 +151,10 @@ public class GestionErgosum {
         rs = DialogueBd.lecture(mysql);
 
         Categorie maCategorie = new Categorie();
-        maCategorie.setCodecateg(rs.get(0).toString());
-        maCategorie.setLibcateg(rs.get(1).toString());
+        if (rs.size() != 0) {
+            maCategorie.setCodecateg(rs.get(0).toString());
+            maCategorie.setLibcateg(rs.get(1).toString());
+        }
 
 
         return maCategorie;
@@ -167,9 +171,11 @@ public class GestionErgosum {
         rs = DialogueBd.lecture(mysql);
 
         Trancheage maTranche = new Trancheage();
-        maTranche.setCodetranche(rs.get(0).toString());
-        maTranche.setAgemin(Integer.valueOf(rs.get(1).toString()));
-        maTranche.setAgemax(Integer.valueOf(rs.get(2).toString()));
+        if (rs.size() != 0) {
+            maTranche.setCodetranche(rs.get(0).toString());
+            maTranche.setAgemin(Integer.valueOf(rs.get(1).toString()));
+            maTranche.setAgemax(Integer.valueOf(rs.get(2).toString()));
+        }
 
         return maTranche;
     }
@@ -183,10 +189,11 @@ public class GestionErgosum {
                 "WHERE ANNEE =" + codecatalogue;
 
         rs = DialogueBd.lecture(mysql);
-
         Catalogue monCatalogue = new Catalogue();
-        monCatalogue.setAnnee(Integer.valueOf(rs.get(0).toString()));
-        monCatalogue.setQuantiteDistribuee(Integer.valueOf(rs.get(1).toString()));
+        if (rs.size() != 0) {
+            monCatalogue.setAnnee(Integer.valueOf(rs.get(0).toString()));
+            monCatalogue.setQuantiteDistribuee(Integer.valueOf(rs.get(1).toString()));
+        }
 
         return monCatalogue;
     }
@@ -300,7 +307,7 @@ public class GestionErgosum {
     public int rechercherTotalDictionnaire(String annee) throws MonException {
         List<Object> rs;
 
-        String mysql = "SELECT SUM(c.QUANTITE) " +
+        String mysql = "SELECT IFNULL(SUM(c.QUANTITE), 0) " +
                 "FROM CATEGORIE a, JOUET b, COMPORTE c " +
                 "WHERE a.CODECATEG = b.CODECATEG " +
                 "AND b.NUMERO = c.NUMERO " +
@@ -326,6 +333,7 @@ public class GestionErgosum {
                 "AND d.CODECATEG = " + codecateg + " " +
                 "GROUP BY f.ANNEE";
         rs = DialogueBd.lecture(mysql);
+        System.out.println(mysql);
 
         while (index < rs.size()) {
             // On cr�e un stage
@@ -345,7 +353,7 @@ public class GestionErgosum {
         List<Object> rs;
         int annee_fin = annee + nb;
 
-        String mysql = "SELECT SUM(f.QUANTITE) " +
+        String mysql = "SELECT IFNULL(SUM(f.QUANTITE), 0) " +
                 "FROM CATEGORIE d, JOUET e, COMPORTE f " +
                 "WHERE d.CODECATEG = e.CODECATEG " +
                 "AND e.NUMERO = f.NUMERO " +
@@ -354,7 +362,11 @@ public class GestionErgosum {
                 "AND d.CODECATEG = " + codecateg + " ";
         rs = DialogueBd.lecture(mysql);
         int total;
-        total = Integer.valueOf(rs.get(0).toString());
+        if (rs.get(0).toString() != "NULL") {
+            total = Integer.valueOf(rs.get(0).toString());
+        } else {
+            total = 0;
+        }
         return total;
     }
 }
