@@ -4,7 +4,7 @@
          pageEncoding="ISO-8859-1" %>
 <html>
 <head>
-    <title>Ajout d'un jouet</title>
+    <title>Modification d'un jouet</title>
     <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
     <link rel="stylesheet" href="/resources/css/main.css">
 </head>
